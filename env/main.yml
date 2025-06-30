@@ -1,0 +1,24 @@
+---
+desktop_packages:
+  - balena-etcher
+
+hashicorp_packages:
+  - consul
+  - nomad
+  - terraform-docs
+  - tfenv
+  - vagrant
+  - vault
+
+pacman_packages:
+  - curl
+  - git
+  - aws-cli
+
+yay_packages:
+  - jq
+  - neovim
+  - netcat
+  - tmux
+  - wget
+  - zsh
