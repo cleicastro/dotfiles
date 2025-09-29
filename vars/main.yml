@@ -12,6 +12,8 @@ hashicorp_packages:
 
 pacman_packages:
   - curl
+  - zip
+  - unzip
   - git
   - aws-cli
 
