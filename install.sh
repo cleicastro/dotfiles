@@ -1,9 +1,14 @@
 #!/bin/bash
-for dir in */
-do
-	if [ "$dir" = "var/" ]; then
-        continue
-    fi
+set -euo pipefail
 
-	stow --adopt ${dir%/}; 
+TARGET="$HOME"
+
+# Traverses all directories except "vars/"
+for dir in */; do
+    [ "$dir" = "vars/" ] && continue
+
+    echo "Synchronizing $dir..."
+    stow --restow --target="$TARGET" --no-folding "${dir%/}"
 done
+
+echo "Dotfiles synchronized!"
