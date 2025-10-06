@@ -9,7 +9,6 @@ for dir in */; do
 
     echo "Synchronizing $dir..."
     stow --adopt "${dir%/}"
-    stow --restow --target="$TARGET" --no-folding "${dir%/}"
 done
 
 echo "Dotfiles synchronized!"
