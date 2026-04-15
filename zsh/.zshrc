@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/clei/completions:"* ]]; then export FPATH="/home/clei/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -122,6 +124,7 @@ alias hacker="sudo python2 /usr/bin/katoolin/katoolin.py"
 alias android-studio="sudo sh /usr/local/android-studio/bin/studio.sh"
 alias emulator="~/Android/Sdk/emulator/emulator"
 alias power-tv="wakeonlan D8:3A:DD:0A:AB:98"
+alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 
 # Environments to DRM
 export WORKSPACE=$HOME/projects/drm-starter
@@ -149,26 +152,28 @@ export PATH=$PATH:/snap/bin
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
 
-alias awsbash="f(){ aws ecs execute-command --region us-east-1 --cluster appsclub-br-\""\$2\"" --task \$(aws ecs list-tasks --cluster=appsclub-br-\""\$2\"" --service-name=\""\$1\""-\""\$2\"" | grep 'arn:aws:ecs:us-east-1' -m 1 | sed 's/\"//g;s/,//g') --container \""\$1\""-\""\$2\"" --command \"/bin/sh \" --interactive }; f"
-
-media-importer() {
-    local mediaId=$1
-    aws batch submit-job \
-        --job-name media-importer-"${mediaId}" \
-        --job-queue media-importer-job-queue \
-        --job-definition media-importer-job-definition \
-        --container-overrides '{
-            "environment": [
-                {
-                    "name": "PAYLOAD_MEDIA_IMPORTER",
-                    "value": "{\"action\":\"save_from_prod_id\",\"id\":\"'"${mediaId}"'\"}"
-                }
-            ]
-        }'
-}
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH=$PATH:/opt/jadx/bin
+
+export COLUMNS="120"
+
+export PATH="$PATH:/home/clei/ACLI"
+export PATH=$PATH:/home/clei/ACLI/bin
+export NGROK_AUTHTOKEN=301NjYMSk8YskvL8V4aqCtEVqY1_6wixeWLPavBgH6APAnLib
+
+
+# bun completions
+[ -s "/home/clei/.bun/_bun" ] && source "/home/clei/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+. "/home/clei/.deno/env"
+
+# opencode
+export PATH=/home/clei/.opencode/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
