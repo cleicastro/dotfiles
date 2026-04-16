@@ -1,0 +1,4 @@
+{
+  "runtime.valueCompletion": true,
+  "diagnostics.globals": ["vim"]
+}

@@ -12,4 +12,4 @@ vim.opt.expandtab = true
 -- Visual
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "100"
+vim.opt.statusline = "%#TabLineSel#%{trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))}%* %t %= %l/%c %p%% "
