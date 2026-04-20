@@ -13,3 +13,15 @@ vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.statusline = "%#TabLineSel#%{trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))}%* %t %= %l/%c %p%% "
+
+-- Split borders (VSCode-like)
+vim.opt.fillchars = {
+  vert = "│",
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz = "┼",
+}
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3b4261", bg = "NONE" })
