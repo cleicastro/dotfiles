@@ -109,6 +109,40 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+bastion() {
+  if [[ "$1" == "dev" ]]; then
+        echo "Baston do ambiente de desenvolvimento selecionado!"
+        database="flatcalc-dev.crfujvcqmeba.us-east-2.rds.amazonaws.com"
+        region="us-east-2"
+  elif [[ "$1" == "prod" ]]; then
+      echo "Bastion do ambiente de produção selecionado!"
+      database="flatcalc-prod.cbkhqyghnkzl.us-east-1.rds.amazonaws.com"
+      region="us-east-1"
+  else
+      echo "Ambiente não reconhecido. Encerrando o comando."
+      return 1
+  fi
+
+  if [[ -n "$2" ]]; then
+      server="$2"
+  else
+      echo "Buscando IP do bastion no ambiente $1 ($region)..."
+      server=$(aws ec2 describe-instances \
+          --profile terraform \
+          --region "$region" \
+          --query "Reservations[*].Instances[*].PublicIpAddress" \
+          --output text \
+          | head -n1)
+      if [[ -z "$server" ]]; then
+          echo "Não foi possível obter o IP do bastion. Verifique o perfil/credenciais AWS."
+          return 1
+      fi
+  fi
+  echo "Iniciando a conexão com o bando de dados $database através do bastion $server"
+  echo "IP do bastion selecionado: $server"
+  ssh -i "~/.ssh/flatcalc_nat_instance_id_rsa.pem" -L 3306:$database:3306 ec2-user@$server -N
+}
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
