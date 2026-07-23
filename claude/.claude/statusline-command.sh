@@ -67,8 +67,8 @@ if [ -n "$used" ]; then
   bar=$(render_bar "$used")
   ctx_color=$(color_for_pct "$used")
   tokens_str=""
-  if [ -n "$input_tokens" ] && [ -n "$ctx_size" ]; then
-    tokens_str=$(printf ' (%s/%s tok)' "$(human_tokens "$input_tokens")" "$(human_tokens "$ctx_size")")
+  if [ -n "$input_tokens" ]; then
+    tokens_str=$(printf ' (%s tok)' "$(human_tokens "$input_tokens")")
   fi
   ctx_str=$(printf '%s[%s] %.0f%%%s%s' "$ctx_color" "$bar" "$used" "$tokens_str" "$RESET")
 fi
