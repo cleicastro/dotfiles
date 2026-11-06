@@ -1,5 +1,5 @@
 # Add deno completions to search path
-if [[ ":$FPATH:" != *":/home/clei/completions:"* ]]; then export FPATH="/home/clei/completions:$FPATH"; fi
+if [[ ":$FPATH:" != *":$HOME/completions:"* ]]; then export FPATH="$HOME/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -151,14 +151,27 @@ export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH="/usr/local/bin/terragrunt:$PATH"
 export PATH="/usr/local/bin/platform-tools:$PATH"
 
-# THIS IS FRAMEWORK KATOOLIN FOR INSTALL APPS FROM KALI-LINUX
-export PATH="/usr/bin/katoolin:$PATH"
-alias hacker="sudo python2 /usr/bin/katoolin/katoolin.py"
-
-alias android-studio="sudo sh /usr/local/android-studio/bin/studio.sh"
-alias emulator="~/Android/Sdk/emulator/emulator"
 alias power-tv="wakeonlan D8:3A:DD:0A:AB:98"
-alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+
+if [[ "$OSTYPE" == linux* ]]; then
+    # THIS IS FRAMEWORK KATOOLIN FOR INSTALL APPS FROM KALI-LINUX
+    export PATH="/usr/bin/katoolin:$PATH"
+    alias hacker="sudo python2 /usr/bin/katoolin/katoolin.py"
+
+    alias android-studio="sudo sh /usr/local/android-studio/bin/studio.sh"
+    alias emulator="~/Android/Sdk/emulator/emulator"
+    alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+
+    export ANDROID_HOME=$HOME/DevTools/Android/
+    export PATH=$PATH:/snap/bin
+    export PATH=$PATH:/opt/jadx/bin
+
+    #GO LANG
+    export GOROOT=/usr/local/go
+    export PATH=$PATH:$GOROOT/bin
+else
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+fi
 
 # Environments to DRM
 export WORKSPACE=$HOME/projects/drm-starter
@@ -166,7 +179,6 @@ export DRM_WRAPPER_HOME=$WORKSPACE/projects/drm-wrapper/drm-wrapper
 export DRM=$HOME/DRM
 export KEYSTORE=$WORKSPACE/projects/apkbuild/apkbuild/appstore.keystore
 export WORK=$HOME/wrapper-v2/work/
-export ANDROID_HOME=$HOME/DevTools/Android/
 export PATH=$PATH:$WORKSPACE/shell-scripts
 export PATH=$PATH:$WORKSPACE/shell-scripts/pidcat
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -174,40 +186,33 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/build-tools/27.0.1
 export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$GOROOT/bin
-export PATH=$PATH:/snap/bin
 
 #PYTHON
 #export PYTHON="/usr/bin/python2:"$PATH
 # export PYTHON="/usr/bin/python:"$PATH
 #alias python=/usr/bin/python2
 
-#GO LANG
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="$HOME/.tfenv/bin:$PATH"
-export PATH=$PATH:/opt/jadx/bin
 
 export COLUMNS="120"
 
-export PATH="$PATH:/home/clei/ACLI"
-export PATH=$PATH:/home/clei/ACLI/bin
+export PATH="$PATH:$HOME/ACLI"
+export PATH=$PATH:$HOME/ACLI/bin
 export NGROK_AUTHTOKEN=301NjYMSk8YskvL8V4aqCtEVqY1_6wixeWLPavBgH6APAnLib
 
 
 # bun completions
-[ -s "/home/clei/.bun/_bun" ] && source "/home/clei/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-. "/home/clei/.deno/env"
+[ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
 
 # opencode
-export PATH=/home/clei/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
