@@ -128,7 +128,7 @@ bastion() {
   else
       echo "Buscando IP do bastion no ambiente $1 ($region)..."
       server=$(aws ec2 describe-instances \
-          --profile terraform \
+          --profile ryatec \
           --region "$region" \
           --query "Reservations[*].Instances[*].PublicIpAddress" \
           --output text \
@@ -216,3 +216,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+
+# Claude Code: conta pessoal dentro de ~/clei, conta corporativa no resto
+claude() {
+  if [[ "$PWD/" == "$HOME/clei/"* ]]; then
+    CLAUDE_CONFIG_DIR="$HOME/.claude-clei" command claude "$@"
+  else
+    command claude "$@"
+  fi
+}
+claude-clei() { CLAUDE_CONFIG_DIR="$HOME/.claude-clei" command claude "$@"; }
